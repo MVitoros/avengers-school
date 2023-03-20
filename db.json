@@ -1,0 +1,110 @@
+{
+  "avengers": [
+    {
+      "name": "Tony Stark",
+      "alias": "Ironman",
+      "gender": "Male",
+      "dob": "May 29, 1970",
+      "nationality": "American",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEzClt2o9mlFR407hWzB2WRs7aTyAxsnRMaslKR2CMbg&s",
+      "lessons": {
+        "martialArts": {
+          "ects": 3,
+          "grade": 6
+        },
+        "flying": {
+          "ects": 2,
+          "grade": 9
+        },
+        "tactics": {
+          "ects": 5,
+          "grade": 4
+        }
+      }
+    },
+    {
+      "name": "Natasha Romanoff",
+      "alias": "Black widow",
+      "gender": "Female",
+      "dob": "December 3, 1984",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRc0DEzKCXS8pjwbIhxoe7qWUe8QuD-Eg97Uw&usqp=CAU",
+      "lessons": {
+        "martialArts": {
+          "ects": 3,
+          "grade": 6
+        },
+        "espionage": {
+          "ects": 4,
+          "grade": 8
+        },
+        "targeting": {
+          "ects": 5,
+          "grade": 2
+        }
+      }
+    },
+    {
+      "name": "Thor Odinson",
+      "alias": "Thor",
+      "gender": "Male",
+      "dob": "December 3, 1984",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRc0DEzKCXS8pjwbIhxoe7qWUe8QuD-Eg97Uw&usqp=CAU",
+      "lessons": {
+        "martialArts": {
+          "ects": 3,
+          "grade": 6
+        },
+        "espionage": {
+          "ects": 4,
+          "grade": 3
+        },
+        "tactics": {
+          "ects": 5,
+          "grade": 2
+        }
+      }
+    },
+    {
+      "name": "Bruce Banner",
+      "alias": "Hulk",
+      "gender": "Male",
+      "dob": "December 18, 1969",
+      "image": "https://www.thefactsite.com/wp-content/uploads/2021/05/the-hulk-facts.jpg",
+      "lessons": {
+        "shooting": {
+          "ects": 3,
+          "grade": 0
+        },
+        "flying": {
+          "ects": 2,
+          "grade": 0
+        },
+        "tactics": {
+          "ects": 5,
+          "grade": 0
+        }
+      }
+    },
+    {
+      "name": "Clint Burton",
+      "alias": "Hawkeye",
+      "gender": "Male",
+      "dob": "December 18, 1969",
+      "image": "https://www.nme.com/wp-content/uploads/2020/07/Hawkeye-Marvel.jpg",
+      "lessons": {
+        "martialArts": {
+          "ects": 3,
+          "grade": 7
+        },
+        "flying": {
+          "ects": 2,
+          "grade": 0
+        },
+        "shooting": {
+          "ects": 4,
+          "grade": 4
+        }
+      }
+    }
+  ]
+}

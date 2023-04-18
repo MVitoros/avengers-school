@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from "react";
-import Header from "./components/Header/Header";
-import Typography from "./components/Typography/Typography";
+import { useEffect, useState } from "react";
+
 import "./App.css";
-import { Container } from "./components/Container/Container.styles";
+
+//theme
 import theme from "./theme/theme";
 
+//components
+import Header from "./components/Header/Header";
+import Typography from "./components/Typography/Typography";
+import Container from "./components/Container/Container";
 import Card from "./components/Card/Card";
 import Image from "./components/ImageComp/Image";
 import Logo from "./assets/img/logo.png";
@@ -12,12 +16,19 @@ import Main from "./components/Main/Main";
 import CardGroup from "./components/CardGroup/CardGroup";
 import Form from "./components/Form/Form";
 import Search from "./components/Search/Search";
+import Select from "./components/Select/Select";
 
+//helpers
 import renderHeroes from "./utils/renderHeros";
 
 type Lesson = {
   ects: number;
   grade: number;
+};
+
+export type FilterType = {
+  filterValue: string;
+  filterData: DataType[];
 };
 
 export type DataType = {
@@ -35,15 +46,24 @@ const lightGrey = theme.colors.darkGrey;
 function App() {
   const [data, setData] = useState<DataType[]>([]);
   const [searchValue, setSearchValue] = useState("");
+  const [selectValue, setSelectValue] = useState("");
+  let lessons: string[] = [];
+  console.log(data);
 
-  const filteredData = data.filter((item) => {
-    if (item.alias.toLowerCase().includes(searchValue.toLowerCase())) {
-      return item;
-    }
+  if (data.length > 0) {
+    lessons = data.reduce((acc: string[], curr: DataType) => {
+      for (const lesson in curr.lessons) {
+        if (!acc.includes(lesson)) {
+          acc.push(lesson);
+        }
+      }
+      return acc;
+    }, []);
+  }
 
-    return false;
-  });
-
+  const selectValueHandler = (value: string) => {
+    setSelectValue(value);
+  };
   const searchValueHandler = (value: string) => {
     setSearchValue(value);
   };
@@ -58,7 +78,7 @@ function App() {
 
   return (
     <div className="App">
-      <Container maxWidth={1440} bgColor={theme.colors.lightRed}>
+      <Container maxWidth={1440} bgColor={theme.colors.darkRed}>
         <Header>
           <Card>
             <Card.SecondaryContent width={30} flexConfig={true}>
@@ -77,6 +97,12 @@ function App() {
         <Main>
           <Container maxWidth={750} bgColor={theme.colors.lightGrey}>
             <Form>
+              <Select
+                value={selectValue}
+                options={lessons}
+                label={"Search for a lesson"}
+                onChange={(value) => selectValueHandler(value)}
+              />
               <Search
                 label="Seach for a hero name"
                 value={searchValue}
@@ -84,7 +110,7 @@ function App() {
               />
             </Form>
             <CardGroup>
-              {renderHeroes(data, filteredData).map(
+              {renderHeroes(data, searchValue, selectValue).map(
                 ({ alias, image, lessons }: DataType) => {
                   return (
                     <Card key={alias}>

@@ -8,8 +8,9 @@ const Search = ({ value, label, onChange }: SearchProps) => {
 
   return (
     <Styled.Search>
-      {label && <Styled.Label>{label}</Styled.Label>}
+      {label && <Styled.Label htmlFor="input-name">{label}</Styled.Label>}
       <Styled.Input
+        id="input-name"
         onInput={(event) => inputChangeHandler(event)}
         value={value}
       />

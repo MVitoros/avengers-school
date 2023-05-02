@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from "react";
-import Header from "./components/Header/Header";
-import Typography from "./components/Typography/Typography";
+import { useEffect, useState } from "react";
+
 import "./App.css";
-import { Container } from "./components/Container/Container.styles";
+
+//theme
 import theme from "./theme/theme";
 
+//components
+import Header from "./components/Header/Header";
+import Typography from "./components/Typography/Typography";
+import Container from "./components/Container/Container";
 import Card from "./components/Card/Card";
 import Image from "./components/ImageComp/Image";
 import Logo from "./assets/img/logo.png";
@@ -12,15 +16,18 @@ import Main from "./components/Main/Main";
 import CardGroup from "./components/CardGroup/CardGroup";
 import Form from "./components/Form/Form";
 import Search from "./components/Search/Search";
+import Select from "./components/Select/Select";
 
+//helpers
 import renderHeroes from "./utils/renderHeros";
+import { debounce } from "./utils/debounce";
 
 type Lesson = {
   ects: number;
   grade: number;
 };
 
-export type DataType = {
+export type FetchedHeroesDataType = {
   alias: string;
   dob: string;
   gender: string;
@@ -33,20 +40,25 @@ export type DataType = {
 const lightGrey = theme.colors.darkGrey;
 
 function App() {
-  const [data, setData] = useState<DataType[]>([]);
+  const [data, setData] = useState<FetchedHeroesDataType[]>([]);
   const [searchValue, setSearchValue] = useState("");
+  const [selectValue, setSelectValue] = useState("");
 
-  const filteredData = data.filter((item) => {
-    if (item.alias.toLowerCase().includes(searchValue.toLowerCase())) {
-      return item;
-    }
+  const lessons = data.reduce((acc: string[], curr: FetchedHeroesDataType) => {
+    console.log(curr.lessons);
+    Object.keys(curr.lessons).forEach((lesson) => {
+      if (!acc.includes(lesson)) {
+        acc.push(lesson);
+      }
+    });
+    return acc;
+  }, []);
 
-    return false;
-  });
-
-  const searchValueHandler = (value: string) => {
-    setSearchValue(value);
+  const selectValueHandler = (value: string) => {
+    setSelectValue(value);
   };
+
+  const debouncedHandleChange = debounce((value) => setSearchValue(value));
 
   useEffect(() => {
     (async () => {
@@ -58,7 +70,7 @@ function App() {
 
   return (
     <div className="App">
-      <Container maxWidth={1440} bgColor={theme.colors.lightRed}>
+      <Container maxWidth={1440} bgColor={theme.colors.darkRed}>
         <Header>
           <Card>
             <Card.SecondaryContent width={30} flexConfig={true}>
@@ -77,15 +89,20 @@ function App() {
         <Main>
           <Container maxWidth={750} bgColor={theme.colors.lightGrey}>
             <Form>
+              <Select
+                value={selectValue}
+                options={lessons}
+                label={"Search for a lesson"}
+                onChange={(value) => selectValueHandler(value)}
+              />
               <Search
                 label="Seach for a hero name"
-                value={searchValue}
-                onChange={(value) => searchValueHandler(value)}
+                onChange={(value) => debouncedHandleChange(value)}
               />
             </Form>
             <CardGroup>
-              {renderHeroes(data, filteredData).map(
-                ({ alias, image, lessons }: DataType) => {
+              {renderHeroes(data, searchValue, selectValue).map(
+                ({ alias, image, lessons }: FetchedHeroesDataType) => {
                   return (
                     <Card key={alias}>
                       <Card.SecondaryContent width={40} flexConfig={true}>

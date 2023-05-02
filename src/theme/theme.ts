@@ -12,7 +12,7 @@ const theme = {
 
   colors: {
     lightRed: "#ef233c",
-    darkRed: "#d90429",
+    darkRed: "#d32f2f",
     lightGrey: "#edf2f4",
     darkGrey: "#8d99ae",
     black: "#2b2d42",

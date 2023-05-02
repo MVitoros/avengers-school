@@ -1,7 +1,7 @@
-import { DataType } from "../App";
+import { FetchedHeroesDataType } from "../App";
 
 const renderHeroes = (
-  heroList: DataType[],
+  heroList: FetchedHeroesDataType[],
   searchValue: string,
   selectValue: string
 ) => {
@@ -20,10 +20,6 @@ const renderHeroes = (
       : true;
     return lessonMatch && heroMatch;
   });
-
-  if (filteredData.length === 0) {
-    return [];
-  }
 
   return filteredData;
 };

@@ -20,18 +20,14 @@ import Select from "./components/Select/Select";
 
 //helpers
 import renderHeroes from "./utils/renderHeros";
+import { debounce } from "./utils/debounce";
 
 type Lesson = {
   ects: number;
   grade: number;
 };
 
-export type FilterType = {
-  filterValue: string;
-  filterData: DataType[];
-};
-
-export type DataType = {
+export type FetchedHeroesDataType = {
   alias: string;
   dob: string;
   gender: string;
@@ -44,29 +40,25 @@ export type DataType = {
 const lightGrey = theme.colors.darkGrey;
 
 function App() {
-  const [data, setData] = useState<DataType[]>([]);
+  const [data, setData] = useState<FetchedHeroesDataType[]>([]);
   const [searchValue, setSearchValue] = useState("");
   const [selectValue, setSelectValue] = useState("");
-  let lessons: string[] = [];
-  console.log(data);
 
-  if (data.length > 0) {
-    lessons = data.reduce((acc: string[], curr: DataType) => {
-      for (const lesson in curr.lessons) {
-        if (!acc.includes(lesson)) {
-          acc.push(lesson);
-        }
+  const lessons = data.reduce((acc: string[], curr: FetchedHeroesDataType) => {
+    console.log(curr.lessons);
+    Object.keys(curr.lessons).forEach((lesson) => {
+      if (!acc.includes(lesson)) {
+        acc.push(lesson);
       }
-      return acc;
-    }, []);
-  }
+    });
+    return acc;
+  }, []);
 
   const selectValueHandler = (value: string) => {
     setSelectValue(value);
   };
-  const searchValueHandler = (value: string) => {
-    setSearchValue(value);
-  };
+
+  const debouncedHandleChange = debounce((value) => setSearchValue(value));
 
   useEffect(() => {
     (async () => {
@@ -105,13 +97,12 @@ function App() {
               />
               <Search
                 label="Seach for a hero name"
-                value={searchValue}
-                onChange={(value) => searchValueHandler(value)}
+                onChange={(value) => debouncedHandleChange(value)}
               />
             </Form>
             <CardGroup>
               {renderHeroes(data, searchValue, selectValue).map(
-                ({ alias, image, lessons }: DataType) => {
+                ({ alias, image, lessons }: FetchedHeroesDataType) => {
                   return (
                     <Card key={alias}>
                       <Card.SecondaryContent width={40} flexConfig={true}>

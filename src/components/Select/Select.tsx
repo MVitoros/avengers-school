@@ -12,7 +12,7 @@ const Select = ({ value, options, label, onChange }: SelectProps) => {
       <Styled.Select
         id="input-lesson"
         value={value}
-        onChange={(event) => selectChangeHandler(event)}
+        onChange={selectChangeHandler}
       >
         <Styled.Option value="">Select a lesson</Styled.Option>
         {options.map((option) => (

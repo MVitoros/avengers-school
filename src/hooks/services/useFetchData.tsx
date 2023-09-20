@@ -20,7 +20,7 @@ function useFetchData<T>({ url }: FetchProps) {
   const [hasError, setHasError] = useState<ErrorType>(ErrorInitialState);
 
   useEffect(() => {
-    const RequestData = async () => {
+    const requestData = async () => {
       setIsLoading(true);
       setHasError(ErrorInitialState);
       try {
@@ -39,8 +39,9 @@ function useFetchData<T>({ url }: FetchProps) {
       }
     };
 
-    RequestData();
-  }, [url]);
+    requestData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return { data, isLoading, hasError };
 }

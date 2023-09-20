@@ -7,11 +7,11 @@ export const decodeURL = (url: string) => {
 
   const parts = url.split("-");
 
-  const capitalizedWords = parts.map((part) => {
+  const capitalizedURL = parts.map((part) => {
     const firstLetter = part.charAt(0).toUpperCase();
     const restOfWord = part.slice(1);
     return firstLetter + restOfWord;
   });
 
-  return capitalizedWords.join(" ");
+  return capitalizedURL.join(" ");
 };

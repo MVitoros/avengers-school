@@ -1,4 +1,4 @@
-import { FetchedHeroesDataType } from "./types/generalTypes";
+import { FetchedHeroesDataType } from "../generalTypes";
 
 const renderHeroes = (
   heroList: FetchedHeroesDataType[],

@@ -1,23 +1,21 @@
-import { FetchedHeroesDataType } from "../../utils/types/generalTypes";
-import Card from "../Card/Card";
-import CardGroup from "../CardGroup/CardGroup";
-import Image from "../ImageComp/Image";
-import Typography from "../Typography/Typography";
-import renderHeroes from "../../utils/renderHeros";
-import theme from "../../theme/theme";
-import { HeroListType } from "./HeroList.types";
+import Card from "../../../../components/Card/Card";
+import CardGroup from "../../../../components/CardGroup/CardGroup";
+import Image from "../../../../components/ImageComp/Image";
+import Typography from "../../../../components/Typography/Typography";
+import theme from "../../../../theme/theme";
 import { Link } from "react-router-dom";
-import { encodeURL } from "../../utils/editURL";
+import { encodeURL } from "../../../../utils/editURL";
+import { HeroListType } from "../../types/homepageTypes";
 
 const lightGrey = theme.colors.darkGrey;
 
-const HeroList = ({ data }: HeroListType) => (
+const HeroList = ({ heroesList }: HeroListType) => (
   <CardGroup>
-    {data.map(({ alias, image, lessons }: FetchedHeroesDataType) => (
+    {heroesList.map(({ alias, image, lessons }) => (
       <Link
         to={`heroes/${encodeURL(alias)}`}
         key={alias}
-        state={data.find((item) => item.alias === alias)}
+        state={heroesList.find((item) => item.alias === alias)}
       >
         <Card>
           <Card.SecondaryContent width={40} flexConfig={true}>

@@ -1,42 +1,42 @@
 import { useLocation, useParams } from "react-router-dom";
-import { decodeURL } from "../utils/editURL";
-import Image from "../components/ImageComp/Image";
-import Typography from "../components/Typography/Typography";
-import { FetchedHeroesDataType } from "../utils/types/generalTypes";
-import MainPageLayout from "../layout/MainPageLayout";
+import { decodeURL } from "../../utils/editURL";
+import Image from "../../components/ImageComp/Image";
+import Typography from "../../components/Typography/Typography";
+import MainPageLayout from "../../layout/MainPageLayout";
+import { HeroDataType } from "./types/heroPageTypes";
 
 const Heroes = () => {
   const { heroId } = useParams();
   const location = useLocation();
 
-  const heroSlice = location.state as FetchedHeroesDataType;
+  const heroData: HeroDataType = location.state;
 
   return (
     <div className="Heroes">
       <MainPageLayout>
-        {!heroSlice ? (
+        {!heroData ? (
           <h1>No such Hero was found in the database.</h1>
         ) : (
           <>
             <Typography variant="h2" variantSize={0}>
-              {heroSlice.name}
+              {heroData.name}
             </Typography>
             <Typography variant="h1" variantSize={3}>
               {heroId && decodeURL(heroId)}
             </Typography>
             <Typography variant="p" variantSize={2}>
-              {heroSlice.gender}
+              {heroData.gender}
             </Typography>
-            {heroSlice.nationality && (
+            {heroData.nationality && (
               <Typography variant="h2" variantSize={0}>
-                {heroSlice.nationality}
+                {heroData.nationality}
               </Typography>
             )}
-            <Image src={heroSlice.image} />
-            {Object.keys(heroSlice.lessons).map((el) => {
+            <Image src={heroData.image} />
+            {Object.keys(heroData.lessons).map((el) => {
               return (
                 <Typography key={el} variant="h2" variantSize={0}>
-                  {`Lesson: ${el}, grade: ${heroSlice.lessons[el].grade}`}
+                  {`Lesson: ${el}, grade: ${heroData.lessons[el].grade}`}
                 </Typography>
               );
             })}

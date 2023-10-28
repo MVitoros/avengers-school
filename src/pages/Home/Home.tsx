@@ -1,20 +1,20 @@
 import { useState } from "react";
 
-import Form from "../components/Form/Form";
-import Search from "../components/Search/Search";
-import Select from "../components/Select/Select";
-import HeroList from "../components/HeroList/HeroList";
+import Form from "../../components/Form/Form";
+import Search from "../../components/Search/Search";
+import Select from "../../components/Select/Select";
+import HeroList from "./components/HeroList/HeroList";
 //helpers
-import { debounce } from "../utils/debounce";
-import generateLessons from "../utils/generateLessons";
+import { debounce } from "../../utils/debounce";
+import generateLessons from "../../utils/generateLessons";
 
 //types
-import { FetchedHeroesDataType } from "../utils/types/generalTypes";
+import { FetchedHeroesDataType } from "../../generalTypes";
 
 //hooks
-import useFetchData from "../hooks/services/useFetchData";
-import renderHeroes from "../utils/renderHeros";
-import MainPageLayout from "../layout/MainPageLayout";
+import useFetchData from "../../hooks/services/useFetchData";
+import renderHeroes from "../../utils/renderHeroes";
+import MainPageLayout from "../../layout/MainPageLayout";
 
 const Home = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -26,7 +26,11 @@ const Home = () => {
 
   const debouncedHandleChange = debounce((value) => setSearchValue(value));
 
-  const { data, isLoading, hasError } = useFetchData<FetchedHeroesDataType>({
+  const {
+    data: heroes,
+    isLoading,
+    hasError,
+  } = useFetchData<FetchedHeroesDataType>({
     url: "http://localhost:4000/avengers",
   });
 
@@ -40,7 +44,7 @@ const Home = () => {
         <Form>
           <Select
             value={selectValue}
-            options={generateLessons(data)}
+            options={generateLessons(heroes)}
             label={"Search for a lesson"}
             onChange={selectValueHandler}
           />
@@ -49,7 +53,7 @@ const Home = () => {
             onChange={debouncedHandleChange}
           />
         </Form>
-        <HeroList data={renderHeroes(data, searchValue, selectValue)} />
+        <HeroList heroesList={renderHeroes(heroes, searchValue, selectValue)} />
       </>
     );
   };

@@ -1,8 +1,8 @@
 import "./App.css";
 import { Routes, Route } from "react-router";
-import Home from "./pages/Home";
+import Home from "./pages/Home/Home";
 import { Navigate } from "react-router-dom";
-import Heroes from "./pages/Heroes";
+import Heroes from "./pages/Heroes/Heroes";
 
 const App = () => {
   return (
